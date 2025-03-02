@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int dp[201][201][201];
+    int solve(int i , int  j , int operation , string &s)
+    {
+        if(i>j)
+        {
+            return 0;
+        }
+        if(i==j)
+        {
+            return 1;
+        }
+        if(dp[i][j][operation]!=-1)
+        {
+            return dp[i][j][operation];
+        }
+        int maxLength = max(solve(i+1 , j , operation , s) , solve(i , j-1 , operation , s));
+        int operationCost = min(abs(s[i]-s[j]) , 26-abs(s[i] - s[j]));
+        if(operationCost <= operation)
+        {
+            maxLength = max(maxLength , 2+solve(i+1 , j-1 , operation - operationCost ,s));
+        }
+        return dp[i][j][operation]=maxLength;
+    }
+    int longestPalindromicSubsequence(string s, int k) {
+        int n = s.length();
+        memset(dp,-1,sizeof(dp));
+        return solve(0 , n-1 , k , s);
+    }
+};
