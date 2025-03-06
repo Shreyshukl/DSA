@@ -1,0 +1,31 @@
+class Solution {
+  public:
+    //going from last stone to first stone
+    int dp[10001];
+    int solve(int n , int k , vector<int>&arr)
+    {
+        if(n==0)
+        {
+            return 0; //first index p pahuch gye
+        }
+        if(dp[n]!=-1)
+        {
+            return dp[n];
+        }
+        int minCost = INT_MAX;
+        for(int j = 1 ; j<=k ; j++)
+        {
+            if(n-j>=0)
+            {
+            int ParticularjumpCost = solve(n-j , k , arr)+abs(arr[n]-arr[n-j]);
+            minCost = min(minCost , ParticularjumpCost);
+            }
+        }
+        return dp[n]=minCost;
+    }
+    int minimizeCost(int k, vector<int>& arr) {
+       int n = arr.size();
+       memset(dp,-1,sizeof(dp));
+       return solve(n-1 , k , arr);
+    }
+};
