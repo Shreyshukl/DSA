@@ -1,3 +1,36 @@
+class Solution {
+public:
+    long long maxBalancedSubsequenceSum(vector<int>& nums) {
+        int n = nums.size();
+        map<int , long long>mp;  //nums[i]-i , sum
+        long long result = INT_MIN;
+        for(int i = 0 ; i<n ; i++)
+        {
+            long long sum = nums[i];
+            auto it = mp.upper_bound(nums[i]-i) ; //nums[j]-j dhundo
+            if(it!=mp.begin())
+            {
+                it--;
+                sum+=it->second; 
+                //dhundha, milne p uske maxbalancedsubsequencesum apna nums[i] jod diya
+            }
+
+            mp[nums[i]-i] = max(mp[nums[i]-i] , sum); // ab jo bda hoga vo map m store ho
+
+            it = mp.upper_bound(nums[i]-i); 
+//just bda no khojo aur dekho agr uska sum ise chota h to vo no delete krdo map se
+            while(it!=mp.end() && it->second<=sum)
+            {
+                mp.erase(it++);
+            }
+            result = max(result , sum);
+        }
+        return result;
+    }
+};
+
+
+
 //top-down(TLE)
 class Solution {
 public:
@@ -34,6 +67,10 @@ public:
        return solve(0, -1 , nums , n); 
     }
 };
+
+
+
+
 //bottom-up (TLE)
 class Solution {
 public:
