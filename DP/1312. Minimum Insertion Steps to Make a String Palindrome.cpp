@@ -1,3 +1,41 @@
+//top-dowm
+class Solution {
+public:
+    int dp[501][501];
+    int solve(int i , int j , string &s)
+    {
+        if(i>j)
+        {
+            return 0;
+        }
+        if(dp[i][j]!=-1)
+        {
+            return dp[i][j];
+        }
+        if(s[i]==s[j])
+        {
+            dp[i][j]=solve(i+1,j-1,s);
+        }
+        else
+        {
+            dp[i][j]=1+min(solve(i+1,j,s),solve(i,j-1,s));
+        } 
+        return dp[i][j];
+    }
+    int minInsertions(string s) {
+        memset(dp,-1,sizeof(dp));
+        int n = s.length();
+        return solve(0,n-1,s);
+    }
+};
+
+
+
+
+
+
+
+//bottom-up(blueprint)
 class Solution {
 public:
     int minInsertions(string s) {
