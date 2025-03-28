@@ -8,6 +8,35 @@ public:
             mp[arr[i]]++;
         }
        
+        priority_queue<int,vector<int> , greater<int>>pq; //minheap
+        for(pair<int,int> it :mp)
+        {
+            pq.push(it.second);   
+        }
+        
+        while(!pq.empty())
+        {
+            k-=pq.top();
+            if(k<0)
+            {
+                return pq.size();
+            }
+            pq.pop();
+        }
+        return 0;
+    }
+};
+
+class Solution {
+public:
+    int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
+        int n = arr.size();
+        unordered_map<int,int>mp;
+        for(int i = 0 ; i<n ; i++)
+        {
+            mp[arr[i]]++;
+        }
+       
         vector<int>vec;
         for(pair<int,int> it :mp)
         {
