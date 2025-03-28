@@ -2,6 +2,42 @@ class Solution {
 public:
     int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
         int n = arr.size();
+        unordered_map<int,int>mp;
+        for(int i = 0 ; i<n ; i++)
+        {
+            mp[arr[i]]++;
+        }
+       
+        vector<int>vec;
+        for(pair<int,int> it :mp)
+        {
+            vec.push_back(it.second);
+            
+        }
+        sort(vec.begin(),vec.end());
+        for(int i = 0 ; i<vec.size() ; i++)
+        {
+            k-=vec[i];
+            if(k<0)
+            {
+                return vec.size()-i;
+            }
+        }
+        return 0;
+    }
+};
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
+        int n = arr.size();
         if(n==1&&k==1)
         {
             return 0;
