@@ -1,0 +1,27 @@
+class Solution {
+public:
+    
+    int minOperations(vector<int>& nums, int k) {
+        int n = nums.size();
+priority_queue<long long , vector<long long> , greater<long long>>pq(nums.begin() , nums.end()); //minheap
+       
+        int count  = 0;
+        while(pq.size()>=2)
+        {
+             if(pq.top()>=k)
+            {
+                break;
+            }
+            int a = pq.top();
+            pq.pop();
+            int b = pq.top();
+            pq.pop();
+           
+            //minheap se nikala to top hmesha min and second top hmesha use max he ayega
+            long long  val = (long long)a*2+b;
+            pq.push(val);
+            count++;
+        }
+        return count;
+    }
+};
