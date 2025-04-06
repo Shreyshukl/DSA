@@ -19,3 +19,24 @@ public:
         return -1;
     }
 };
+//o(n) with no extra space
+
+class Solution {
+public:
+    int pivotInteger(int n) {
+        int CompleteSum = n*(n+1)/2;
+        for(int i = 1 ; i<=n ; i++)
+        {
+            int p = i;
+            int leftSum = p*(p+1)/2;
+            int rightSum = CompleteSum - leftSum+p;
+
+            if(leftSum == rightSum)
+            {
+                return p;
+            }
+        }
+        return -1;
+    }
+};
+
