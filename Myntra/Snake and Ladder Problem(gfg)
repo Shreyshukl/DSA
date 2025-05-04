@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int minThrow(int N, int arr[]) {
+        vector<int> board(31, -1);
+        
+        // Map snakes and ladders
+        for (int i = 0; i < 2 * N; i += 2) {
+            int from = arr[i];
+            int to = arr[i + 1];
+            board[from] = to;
+        }
+
+        queue<int> q;
+        vector<bool> visited(31, false);
+        
+        q.push(1);
+        visited[1] = true;
+        int steps = 0;
+
+        while (!q.empty()) {
+            int size = q.size();
+            while (size--) {
+                int curr = q.front(); q.pop();
+                if (curr == 30) return steps;
+
+                for (int move = 1; move <= 6; ++move) {
+                    int next = curr + move;
+                    if (next > 30) continue;
+
+                    if (board[next] != -1)
+                        next = board[next];
+
+                    if (!visited[next]) {
+                        visited[next] = true;
+                        q.push(next);
+                    }
+                }
+            }
+            steps++;
+        }
+
+        return -1; // unreachable
+    }
+};
