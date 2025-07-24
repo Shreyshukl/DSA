@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        //2154300
+        int n = nums.size();
+        int dip = -1;
+//pehle dip dhundo (longest string dictionary order k hisab se)
+//edge case : sbse pehla dip n-2 p he hoskta h kyuki agr vha nhi to vo akready 
+//last permutation h next jo hoga vo fir uska reverse he hoga
+        for(int i = n-2 ; i>=0 ; i--)
+        {
+            if(nums[i]<nums[i+1])
+            {
+                dip = i;
+                break;
+            }
+        }
+        if(dip!=-1)
+        {
+        //dip dhundhne k baad dekho dip vale no se just bda no kaun sa h
+        for(int i = n-1 ; i>dip ; i--)
+        {
+            if(nums[i]>nums[dip])
+            {
+                swap(nums[dip] , nums[i]);
+                //uske aage ka increasing order m hota h bs reverse krdo chota hojaye
+                reverse(nums.begin()+dip+1 , nums.end());
+                return;
+            }
+        }
+        }
+        reverse(nums.begin() , nums.end());
+
+    }
+};
