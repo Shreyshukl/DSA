@@ -1,0 +1,64 @@
+class Solution {
+public:
+    string getKthPermutation(string num, int k) {
+        int n = num.size();
+       
+        while(k!=0){
+        int dip = -1;
+        for(int i = n-2 ; i>=0 ; i--)
+        {
+            if(num[i]<num[i+1])
+            {
+                dip = i;
+                break;
+            }
+        }
+        if(dip==-1)
+        {
+            break;
+        }
+       
+            for(int i = n-1 ; i>dip ; i--)
+            {
+                if(num[i]>num[dip])
+                {
+                 swap(num[dip] , num[i]);
+                 reverse(num.begin()+ dip+1 , num.end());
+                 k--;
+                 break;
+                } 
+            }
+        }
+        return num;
+    }
+    int getMinSwaps(string num, int k) {
+        int swap_count = 0;
+        string from = num;
+        string to   = getKthPermutation(num,k);
+
+
+        int n = num.size();
+
+        for(int i = 0 ; i<n ; i++)
+        {
+            if(from[i] == to[i])
+            {
+                continue;
+            }
+            int j = i+1;
+
+            while(from[j]!=to[i])
+            {
+                j++;
+            }
+
+            while(j>i)
+            {
+                swap(from[j],from[j-1]);
+                j--;
+                swap_count++;
+            }
+        }
+        return swap_count;
+    }
+};
