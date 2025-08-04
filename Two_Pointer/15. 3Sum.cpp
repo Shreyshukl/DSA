@@ -49,3 +49,55 @@ public:
     return result;
     }
 };
+
+
+class Solution {
+public:
+    vector<vector<int>>result;
+    void twoSum(int i , int j , vector<int>& nums , int target)
+    {
+        vector<int>ans;
+        while(i<j)
+        {
+            int sum = nums[i]+nums[j];
+            if(sum < target)
+            {
+                i++;
+            }
+            else if(sum > target)
+            {
+                j--;
+            }
+           else{
+              result.push_back({-target , nums[i] , nums[j]});  
+               while(i<j && nums[i]==nums[i+1])
+              {
+                i++;
+              }
+              while(i<j && nums[j]==nums[j-1])
+              {
+                j--;
+              }
+              i++;
+              j--;
+         }
+        }
+    }
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin() , nums.end());
+      
+        int n = nums.size();
+
+        for(int i = 0 ; i<n ; i++)
+        {
+
+            if(i>0 && nums[i]==nums[i-1])
+            {
+                continue;
+            }
+            int target = nums[i];
+            twoSum(i+1 , n-1 , nums , -target);
+        }
+        return result;
+    }
+};
